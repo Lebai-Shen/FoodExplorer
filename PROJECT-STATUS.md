@@ -61,6 +61,7 @@ FoodExplorer 是给独立餐饮小店店主用的经营决策助手：店主上�
 
 文档：
 
+- `README.md` 项目说明（含功能截图，截图在 `docs/screenshots/`）
 - `PRD-FoodExplorer.md` 产品需求文档（v0.2）
 - `COMPETITORS-FoodExplorer.md` 竞品分析
 - `METRICS-FoodExplorer.md` 北极星指标、输入指标、转化漏斗、18 个埋点事件
@@ -91,6 +92,7 @@ FoodExplorer 是给独立餐饮小店店主用的经营决策助手：店主上�
 - 埋点三个事件已落地：`home_view`、`advice_card_click`、`advice_mark_done`；完整设计见 METRICS 文档。
 
 ## 已知限制（要诚实对待）
+- 建议详情页只渲染示例数据里的建议：上传自己的数据、生成建议后点进详情会提示"没有找到"（详情页在服务端渲染，读不到浏览器里的数据）。下一步要改成读本机数据。
 
 - 数据存在浏览器 localStorage，不是数据库，换浏览器就没了。
 - 上传日志只是日志，无法按单个文件精确删除（记录已按"日期 + 菜品"合并）。要删只能删日期区间或清空。

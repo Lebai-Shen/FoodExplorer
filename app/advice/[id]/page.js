@@ -12,10 +12,22 @@ const RULE_LABEL = {
   R4: "库存临期",
 };
 
+// 动态路由参数是原始 URL 片段，中文菜品名会是 percent-encoded，
+// 直接和卡片 id 比会永远匹配不上，所以先解码再比对。
+function decodeParam(value) {
+  try {
+    return decodeURIComponent(value);
+  } catch {
+    return value;
+  }
+}
+
 export default async function AdviceDetailPage({ params }) {
   const { id } = await params;
   const cards = runAllRules(demoData);
-  const card = cards.find((c) => c.id === id);
+  const wanted = decodeParam(id);
+  const card =
+    cards.find((c) => c.id === wanted) || cards.find((c) => c.id === id);
 
   if (!card) {
     return (
