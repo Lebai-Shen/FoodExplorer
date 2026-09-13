@@ -27,6 +27,8 @@ FoodExplorer 是给独立餐饮小店店主用的经营决策助手：店主上�
 - 启动：双击 `F:\FoodExplorer\start.bat`，端口 3000。这台机器**没有装 npm**，用 start.bat 或 pnpm，不要用 npm。
 - 换过文件夹后启动若报错（找不到 next / react 之类），是依赖软链接还指着旧路径。在项目目录跑一次
   `pnpm install --offline --frozen-lockfile` 重链即可（包仓库在 `F:\.pnpm-store\v11`，不用联网）。
+- 代码已经推到 GitHub：https://github.com/Lebai-Shen/FoodExplorer （公开仓库，默认分支 main）。
+- 改完代码要上传：`git add .` → `git commit -m "说明改了什么"` → `git push`。`.env.local` 已被 .gitignore 排除，不会跟着上传。
 - 数据解析用 `xlsx` 库（支持 .xlsx 和 .csv，CSV 兼容 GBK 编码）。
 - AI 分析用 DeepSeek，key 在 `.env.local` 的 `DEEPSEEK_API_KEY`，`.gitignore` 已排除，**不要提交或外发**。
 
