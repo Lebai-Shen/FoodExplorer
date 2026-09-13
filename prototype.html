@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>FoodExplorer 网页版原型图（低保真可点击）</title>
+<style>
+  :root {
+    --ink:#334155; --muted:#94a3b8; --line:#cbd5e1; --soft:#f1f5f9;
+    --accent:#6366f1; --accent-soft:#eef2ff; --warn:#b45309; --ok:#047857;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif; background:#eef2f7; color:var(--ink); }
+  .topbar { position:sticky; top:0; z-index:10; background:#fff; border-bottom:1px solid var(--line); display:flex; align-items:center; height:60px; padding:0 24px; gap:20px; }
+  .brand { font-weight:700; font-size:16px; }
+  .nav { display:flex; gap:6px; margin:0 auto; }
+  .nav button { background:none; border:none; padding:8px 16px; border-radius:9px; font-size:14px; color:var(--muted); cursor:pointer; }
+  .nav button.active { color:var(--accent); background:var(--accent-soft); font-weight:600; }
+  .right { display:flex; align-items:center; gap:10px; }
+  .avatar { width:30px; height:30px; border-radius:50%; background:var(--soft); border:1px solid var(--line); display:flex; align-items:center; justify-content:center; font-size:12px; }
+  .gear { background:none; border:none; font-size:18px; cursor:pointer; color:var(--muted); }
+
+  .container { max-width:1120px; margin:0 auto; padding:28px 24px 60px; }
+  .container.narrow { max-width:780px; }
+  .center-card { max-width:420px; margin:80px auto; background:#fff; border:1px solid var(--line); border-radius:16px; padding:28px; }
+  .h1 { font-size:22px; font-weight:700; margin:0 0 4px; }
+  .sub { font-size:13px; color:var(--muted); margin:0 0 22px; }
+  .wf { border:1.5px dashed var(--line); border-radius:12px; background:#fff; padding:16px; font-size:13px; }
+  .wf.muted { background:var(--soft); color:var(--muted); text-align:center; }
+  .kpi-row { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:20px; }
+  .kpi { border:1.5px solid var(--line); border-radius:14px; padding:18px; background:#fff; }
+  .kpi b { display:block; font-size:24px; margin-top:6px; }
+  .kpi span { font-size:12px; color:var(--muted); }
+  .grid2 { display:grid; grid-template-columns:2fr 1fr; gap:16px; align-items:start; }
+  .hero { border:1.5px solid var(--accent); background:var(--accent-soft); border-radius:14px; padding:22px; }
+  .tag { font-size:11px; color:var(--accent); font-weight:700; }
+  .hero .lead { font-size:18px; font-weight:700; margin:12px 0 16px; line-height:1.5; }
+  .link { color:var(--accent); font-size:13px; cursor:pointer; background:none; border:none; padding:0; }
+  .btn { display:inline-block; min-width:160px; border:none; border-radius:10px; padding:12px 18px; font-size:14px; font-weight:600; cursor:pointer; text-align:center; }
+  .btn.primary { background:var(--accent); color:#fff; }
+  .btn.done { background:#d1fae5; color:var(--ok); }
+  .btn.full { width:100%; }
+  .back { background:none; border:none; color:var(--muted); font-size:13px; cursor:pointer; padding:0 0 14px; }
+  .section-label { font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:.04em; margin:18px 0 8px; }
+  .list-item { border:1.5px dashed var(--line); border-radius:10px; padding:12px 14px; margin-bottom:8px; font-size:13px; background:#fff; cursor:pointer; }
+  .chips { display:flex; gap:8px; margin-bottom:14px; }
+  .chip { border:1px solid var(--line); background:#fff; border-radius:999px; padding:5px 12px; font-size:12px; color:var(--muted); cursor:pointer; }
+  .chip.active { background:var(--accent-soft); border-color:var(--accent); color:var(--accent); font-weight:600; }
+  .tabs { display:flex; gap:0; border-bottom:1px solid var(--line); margin-bottom:16px; }
+  .tab { flex:1; text-align:center; padding:10px; font-size:13px; color:var(--muted); cursor:pointer; border-bottom:2px solid transparent; }
+  .tab.active { color:var(--accent); border-color:var(--accent); font-weight:600; }
+  .field { border:1.5px dashed var(--line); border-radius:9px; padding:10px 12px; margin-bottom:8px; font-size:13px; color:var(--muted); }
+  .uploadbox { border:1.5px dashed var(--line); border-radius:12px; padding:30px; text-align:center; color:var(--muted); font-size:13px; }
+  .trial { display:inline-flex; align-items:center; gap:6px; background:#fff7ed; border:1px solid #fdba74; color:var(--warn); border-radius:999px; padding:4px 10px; font-size:12px; }
+  .bar { height:12px; border-radius:6px; background:var(--soft); overflow:hidden; margin:8px 0; }
+  .bar i { display:block; height:100%; background:var(--accent); }
+  .chartbox { height:120px; border:1.5px dashed var(--line); border-radius:12px; display:flex; align-items:center; justify-content:center; color:var(--muted); font-size:12px; background:#fff; }
+  .note-demo { background:#fef9c3; border:1px solid #eab308; color:#713f12; font-size:12px; padding:8px 10px; border-radius:10px; margin-bottom:12px; }
+  .screen { display:none; }
+  .screen.active { display:block; }
+  .muted-note { color:var(--muted); font-size:12px; }
+</style>
+</head>
+<body>
+  <header class="topbar">
+    <span class="brand">FoodExplorer</span>
+    <nav class="nav">
+      <button data-s="home" class="active" onclick="show('home')">首页</button>
+      <button data-s="advice" onclick="show('advice')">建议</button>
+      <button data-s="data" onclick="show('data')">数据</button>
+    </nav>
+    <div class="right">
+      <div class="avatar" title="已登录：138****0000">138</div>
+      <button class="gear" title="设置" onclick="show('settings')">⚙</button>
+    </div>
+  </header>
+
+  <!-- 登录 -->
+  <section class="screen active" id="login">
+    <div class="center-card">
+      <p class="h1" style="font-size:20px">登录 / 创建店铺档案</p>
+      <p class="sub" style="margin-bottom:18px">手机号登录，用于保存你的数据和试用次数</p>
+      <div class="field">手机号：138 0000 0000</div>
+      <div class="field" style="display:flex;justify-content:space-between">验证码：<span class="link">获取验证码</span></div>
+      <button class="btn primary full" onclick="login()">进入 FoodExplorer</button>
+      <p class="muted-note" style="margin-top:12px;text-align:center">演示模式：任意手机号可进入，验证码不真发</p>
+    </div>
+  </section>
+
+  <!-- 数据 -->
+  <section class="screen" id="data">
+    <div class="container narrow">
+      <h1 class="h1">数据</h1>
+      <p class="sub">上传或录入经营数据，再生成建议</p>
+      <div class="tabs">
+        <div class="tab active" onclick="dataTab(this,'manual')">手动录入</div>
+        <div class="tab" onclick="dataTab(this,'excel')">上传 Excel</div>
+      </div>
+      <div id="manualPane">
+        <p class="section-label">1 · 经营类型和规模</p>
+        <div class="wf">咖啡店 · 单店 · 约 40 平米</div>
+        <p class="section-label">2 · 关键数字（近 7 天）</p>
+        <div class="field">本周营业额：29375 元</div>
+        <div class="field">客单价：约 25 元</div>
+        <div class="field">最畅销 3 道菜及销量：拿铁 315 / 美式 287 / 牛角包 193</div>
+        <div class="field">成本与临期库存：牛奶 42 盒（剩 1 天）</div>
+      </div>
+      <div id="excelPane" style="display:none">
+        <div class="uploadbox">点击或拖拽上传 Excel<br /><span class="muted-note">文件 ≤ 5MB，≤ 1000 行</span></div>
+        <p class="section-label">预览确认（系统识别结果）</p>
+        <div class="wf">我们识别到：本周营业额 29,375 元、最畅销 3 道菜、临期牛奶 42 盒……对吗？</div>
+      </div>
+      <p style="margin-top:18px">
+        <span class="trial">剩余免费次数：3</span>
+      </p>
+      <button class="btn primary full" style="margin-top:12px" onclick="generate()">开始生成经营建议</button>
+      <p class="muted-note" style="margin-top:8px">点此生成会消耗 1 次；浏览和看历史建议不扣次数</p>
+
+      <p class="section-label" style="margin-top:30px">数据可视化（下滑可见）</p>
+      <div class="grid2">
+        <div><div class="chartbox">饼图 · 各商品销售额占比</div></div>
+        <div><div class="chartbox">折线图 · 近 7 天销量趋势</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 首页 -->
+  <section class="screen" id="home">
+    <div class="container">
+      <h1 class="h1">经营首页</h1>
+      <p class="sub">本周经营概览 · 独立咖啡小店 · 演示数据</p>
+      <div class="kpi-row">
+        <div class="kpi"><span>本周营业额</span><b>¥29,375</b></div>
+        <div class="kpi"><span>销量环比（较上周）</span><b>↓ −0.4%</b></div>
+        <div class="kpi"><span>毛利率</span><b>60%</b></div>
+      </div>
+      <div class="grid2">
+        <div class="hero">
+          <span class="tag">本周最该做的一件事</span>
+          <p class="lead">「焦糖玛奇朵」近 7 天销量下滑 38%，建议下周减半备货，视情况考虑下架。</p>
+          <button class="link" onclick="show('advice-detail')">查看完整建议 →</button>
+        </div>
+        <div class="wf">
+          <div class="tag" style="margin-bottom:10px">全部建议（7 条）</div>
+          <div class="list-item" onclick="show('advice')">组合套餐 · 拿铁 + 牛角包 46%</div>
+          <div class="list-item" onclick="show('advice')">毛利风险 · 牛角包 28%</div>
+          <div class="list-item" onclick="show('advice')">库存临期 · 鲜牛奶 42 盒</div>
+          <div class="muted-note">点这里进入建议列表</div>
+        </div>
+      </div>
+      <p style="margin-top:18px" class="muted-note">本周已采纳 0 条 · 采纳后可在「建议」页查看效果</p>
+    </div>
+  </section>
+
+  <!-- 建议列表 -->
+  <section class="screen" id="advice">
+    <div class="container narrow">
+      <h1 class="h1">建议</h1>
+      <p class="sub">按优先级排列 · 采纳后看效果</p>
+      <div class="chips">
+        <span class="chip active">待处理</span>
+        <span class="chip">已采纳 / 看效果</span>
+      </div>
+      <div class="list-item" onclick="show('advice-detail')"><b>R1 · 销量下滑预警</b> · 焦糖玛奇朵 −38%，减半备货或下架</div>
+      <div class="list-item" onclick="show('advice-detail')"><b>R2 · 组合机会</b> · 拿铁 + 牛角包 46%，打包成套餐</div>
+      <div class="list-item" onclick="show('advice-detail')"><b>R3 · 毛利风险</b> · 牛角包毛利率 28%，调价或换供应商</div>
+      <div class="list-item" onclick="show('advice-detail')"><b>R4 · 库存临期</b> · 鲜牛奶 42 盒只剩 1 天，今日特价</div>
+      <p class="muted-note">其余 3 条在滚动列表中继续展示</p>
+    </div>
+  </section>
+
+  <!-- 建议详情 -->
+  <section class="screen" id="advice-detail">
+    <div class="container narrow">
+      <button class="back" onclick="show('advice')">← 返回建议列表</button>
+      <span class="tag">R1 · 销量下滑预警</span>
+      <h1 class="h1" style="margin-top:10px">「焦糖玛奇朵」近 7 天销量下滑 38%，建议下周减半备货，视情况考虑下架。</h1>
+      <p class="section-label">依据（文字优先）</p>
+      <div class="wf">近 7 天销量环比 −38%，日销量从 22 份/天降到 12 份/天，走弱明显。</div>
+      <p class="section-label">数据（下滑可见）</p>
+      <div class="chartbox">焦糖玛奇朵 · 近 7 天销量折线图</div>
+      <p class="section-label">什么情况别听</p>
+      <div class="wf">若只是天气 / 节假日 / 周边活动造成的短期波动，直接减备货可能错过回升。</div>
+      <p class="section-label">预期效果</p>
+      <div class="wf">减少积压和浪费，把备货压到实际需求附近；若持续下滑可及时止损。</div>
+      <p style="margin-top:20px">
+        <button class="btn primary" id="doneBtn" onclick="toggleDone()">我做了</button>
+        <span class="muted-note" style="margin-left:10px">采纳后可在「建议 → 已采纳」查看效果</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- 设置 -->
+  <section class="screen" id="settings">
+    <div class="container narrow">
+      <h1 class="h1">设置</h1>
+      <p class="sub">店铺、账号、订阅</p>
+      <p class="section-label">店铺信息</p>
+      <div class="wf">店铺名称 / 类型 / 规模</div>
+      <p class="section-label">账号与登录</p>
+      <div class="wf">已登录：138****0000 · 绑定手机号 / 退出登录</div>
+      <p class="section-label">订阅 / 试用</p>
+      <div class="wf">剩余免费生成次数：3 · 升级订阅</div>
+    </div>
+  </section>
+
+  <script>
+    const NAV = ['home','advice','data'];
+    function show(id) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      const el = document.getElementById(id);
+      if (el) el.classList.add('active');
+      const navKey = id === 'advice-detail' ? 'advice' : id;
+      document.querySelectorAll('.nav button').forEach(t => {
+        t.classList.toggle('active', NAV.includes(navKey) && t.dataset.s === navKey);
+      });
+      window.scrollTo({ top: 0 });
+    }
+    function login() { show('data'); }
+    function generate() { show('home'); }
+    function dataTab(el, pane) {
+      document.querySelectorAll('#data .tab').forEach(t => t.classList.remove('active'));
+      el.classList.add('active');
+      document.getElementById('manualPane').style.display = pane === 'manual' ? 'block' : 'none';
+      document.getElementById('excelPane').style.display = pane === 'excel' ? 'block' : 'none';
+    }
+    let done = false;
+    function toggleDone() {
+      done = !done;
+      const b = document.getElementById('doneBtn');
+      b.textContent = done ? '已记录 · 我做了' : '我做了';
+      b.className = done ? 'btn done' : 'btn primary';
+    }
+  </script>
+</body>
+</html>

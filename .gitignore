@@ -1,0 +1,6 @@
+node_modules/
+.next/
+.env*.local
+*.log
+# Codex/agent 的本地技能包，不属于项目本身
+.codex/
