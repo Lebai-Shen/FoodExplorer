@@ -17,7 +17,7 @@
 - [本地运行](#本地运行)
 - [已知限制](#已知限制)
 - [路线图](#路线图)
-- [相关文档](#相关文档)
+- [仓库结构与文档](#仓库结构与文档)
 
 ## 我为什么做这个
 
@@ -127,7 +127,7 @@ AI 负责规则想不到的部分——找规律、指认可疑数据。这样�
 - **数据模型**：一行 = 某道菜某一天的经营数据，唯一键「日期 + 菜品名」，重复上传覆盖；看板和口径都由明细即时汇总。
 - **规则引擎**：R1 销量下滑、R2 组合机会、R3 毛利风险、R4 库存临期，输出「结论 / 依据 / 风险 / 预期效果」四段结构。
 - **分析口径**：以数据里最新的一天为终点，取两段等长窗口对比（日 1 vs 1、周 7 vs 7、月 30 vs 30、季 90 vs 90）。
-- **埋点**：`home_view`、`advice_card_click`、`advice_mark_done` 已落地，完整事件字典见 METRICS 文档。
+- **埋点**：`home_view`、`advice_card_click`、`advice_mark_done` 已落地，完整事件字典见 `docs/METRICS-FoodExplorer.md`。
 
 ## 本地运行
 
@@ -162,13 +162,32 @@ pnpm dev
 - [ ] 补图表（销售额占比、销量趋势）
 - [ ] 部署上线，拿到可访问的 demo 链接
 
-## 相关文档
+## 仓库结构与文档
+
+```
+FoodExplorer
+├── README.md                     你正在看的产品说明
+├── prototype.html                可点击的低保真原型（浏览器直接打开）
+├── app/                          Next.js 页面与接口
+│   ├── page.js                   经营首页
+│   ├── data/                     数据页：上传、录入、看板、AI 分析
+│   ├── advice/                   建议列表与详情
+│   ├── login/ settings/          登录、设置
+│   └── api/                      upload / generate / analyze / adopt
+├── components/                   顶部导航
+├── lib/                          规则引擎、数据模型、埋点、试用次数
+└── docs/
+    ├── PRD-FoodExplorer.md       需求文档（背景、用户、功能范围、风险）
+    ├── COMPETITORS-FoodExplorer.md  竞品分析与差异化定位
+    ├── METRICS-FoodExplorer.md   北极星指标、转化漏斗、埋点事件字典
+    ├── OKRs-FoodExplorer-2026Q4.md  季度目标
+    └── screenshots/              各页面截图
+```
 
 | 文档 | 内容 |
 | --- | --- |
-| [PRD-FoodExplorer.md](PRD-FoodExplorer.md) | 需求文档 v0.2：背景、目标用户、价值主张、功能范围、风险 |
-| [COMPETITORS-FoodExplorer.md](COMPETITORS-FoodExplorer.md) | 竞品分析：定位地图、5 个直接竞品、差异化结论 |
-| [METRICS-FoodExplorer.md](METRICS-FoodExplorer.md) | 北极星指标、5 个输入指标、转化漏斗、18 个埋点事件 |
-| [OKRs-FoodExplorer-2026Q4.md](OKRs-FoodExplorer-2026Q4.md) | 三套季度目标 |
+| [PRD-FoodExplorer.md](docs/PRD-FoodExplorer.md) | 需求文档 v0.2：背景、目标用户、价值主张、功能范围、风险 |
+| [COMPETITORS-FoodExplorer.md](docs/COMPETITORS-FoodExplorer.md) | 竞品分析：定位地图、5 个直接竞品、差异化结论 |
+| [METRICS-FoodExplorer.md](docs/METRICS-FoodExplorer.md) | 北极星指标、5 个输入指标、转化漏斗、18 个埋点事件 |
+| [OKRs-FoodExplorer-2026Q4.md](docs/OKRs-FoodExplorer-2026Q4.md) | 三套季度目标 |
 | [prototype.html](prototype.html) | 可点击的低保真原型（浏览器直接打开） |
-| [PROJECT-STATUS.md](PROJECT-STATUS.md) | 项目进度与交接说明 |
